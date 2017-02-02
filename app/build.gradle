@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.example.jacksontesting"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        String sharedTestClassesDir = 'src/sharedTestClasses/java'
+
+        test {
+            java.srcDirs sharedTestClassesDir
+        }
+
+        androidTest {
+            java.srcDirs sharedTestClassesDir
+        }
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE'
+        pickFirst 'META-INF/LICENSE.txt'
+        pickFirst 'META-INF/license.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    testCompile 'junit:junit:4.12'
+
+    String jacksonGroup = 'com.fasterxml.jackson.core'
+    String jacksonVersion = '2.8.5'
+
+    compile(group: jacksonGroup, name: 'jackson-core', version: jacksonVersion)
+    compile(group: jacksonGroup, name: 'jackson-annotations', version: jacksonVersion)
+    compile(group: jacksonGroup, name: 'jackson-databind', version: jacksonVersion)
+}
