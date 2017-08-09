@@ -1,12 +1,12 @@
 package com.example.jacksontesting;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Parent {
 
     private int id;
-    @JsonIgnoreProperties("parent")
     private Child child;
 
     public int getId() {

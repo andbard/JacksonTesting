@@ -47,8 +47,18 @@ public class JacksonUnitTest {
         child = new Child();
         parent.setId(1);
         child.setId(2);
-        parent.setChild(child);
-        child.setParent(parent);
+//        parent.setChild(child);
+//        child.setParent(parent);
+
+        Parent p2 = new Parent();
+        Child c2 = new Child();
+        p2.setId(11);
+        c2.setId(22);
+
+        parent.setChild(c2);
+        child.setParent(p2);
+        p2.setChild(c2);
+        c2.setParent(p2);
     }
 
     @Test
@@ -143,8 +153,8 @@ public class JacksonUnitTest {
         Child child = mapper.readValue(c, Child.class);
         c = mapper.writeValueAsString(child);
         // the next call to readValue will throw the following (not really) expected exception
-        expectedJsonMappingException.expect(com.fasterxml.jackson.databind.JsonMappingException.class);
-        expectedJsonMappingException.expectMessage("No _valueDeserializer assigned");
+//        expectedJsonMappingException.expect(com.fasterxml.jackson.databind.JsonMappingException.class);
+//        expectedJsonMappingException.expectMessage("No _valueDeserializer assigned");
         Parent parent = mapper.readValue(p, Parent.class);
         p = mapper.writeValueAsString(parent);
         System.out.println("p: " + p + "\nc: " + c);
